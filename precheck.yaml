@@ -1,0 +1,10 @@
+- hosts: localhost
+  tasks:
+    - name: Check DNS records
+      debug:
+        msg: "Checking ..."
+      until:
+        - lookup('community.general.dig', api_record) != "NXDOMAIN"
+        - lookup('community.general.dig', apps_record) != "NXDOMAIN"
+      retries: 1000
+      delay: 5
